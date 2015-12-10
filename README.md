@@ -56,8 +56,11 @@ These scripts can be used to manipulate feature files in preparation for use wit
 A typical execution workflow would be:
 
 1) create word embeddings with word2vec, saving vectors in text file format.
+
 2) cluster vectors using ClusterWordVecs.bat
+
 3) create features for a text dataset using the word vector clusters using GenWordFeatures.bat
+
 4) prepare feature files for classification algorithm, eg. Mallet CRF
 
 
