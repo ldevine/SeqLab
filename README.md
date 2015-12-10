@@ -12,7 +12,7 @@ https://code.google.com/p/word2vec/
 
 Vectors created with word2vec should be saved in text file format, not binary.
 
-[Note: actually any real valued vector-space representation for tokens could be used.] 
+[Note: actually any real valued vector-space representation for tokens could be used as long as the vectors are stored in the same format as word2vec text file format.] 
 
 The java code has been exported as a jar file and contains a number of command line applications which can be accessed via the provided scripts.
 
