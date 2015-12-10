@@ -1,0 +1,1 @@
+java -cp ./libs/SeqLab.jar;./libs/jopt-simple-4.8-beta-1.jar;./libs/commons-math3-3.5.jar tools.ClusterSeqVecs -strings sents.txt -vecs seqvecs.txt -centroids centroids.txt -stats stats.txt -members members.txt -verbose clusters.txt -clusters 512 -maxiters 30
