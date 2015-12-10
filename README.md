@@ -60,7 +60,7 @@ A typical execution workflow would be:
 
 
 
-This code is not meant to be a polished output for end user applications, but is simply to accompany the research contained in the above mentioned paper.
+This code is not meant to be a polished output for end user applications.
 
-The best documentation is the code itself.
+
 
