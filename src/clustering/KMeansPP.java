@@ -11,10 +11,16 @@ import core.DenseVector;
 
 /**
  * This class is based on the KMeans clusterer from:
- * 
+ *
  * Apache Commons Math
- * 
- * K-tree - http://ktree.sourceforge.net/
+ *
+ * &
+ *
+ * K-tree
+ * http://ktree.sourceforge.net/
+ *
+ * See also LMW-tree
+ * https://github.com/cmdevries/LMW-tree
  *
  */
 public class KMeansPP {
@@ -28,7 +34,7 @@ public class KMeansPP {
     /** Random generator for choosing initial centers. */
     private Random random;
 
-    
+
     public KMeansPP( int k, int maxIterations) {
     	random = new Random();
         this.k = k;
@@ -41,8 +47,8 @@ public class KMeansPP {
         this.maxIters = maxIterations;
         this.random = random;
     }
-    
-    
+
+
     private ArrayList<Cluster> chooseInitialCenters(ArrayList<DenseVector> points) {
 
         // Convert to list for indexed access. Make it unmodifiable, since removal of items
@@ -63,7 +69,7 @@ public class KMeansPP {
         int firstPointIndex = random.nextInt(numPoints);
         DenseVector firstPoint = new DenseVector(points.get(firstPointIndex));
         taken[firstPointIndex] = true;
-        
+
         resultSet.add(new Cluster(firstPoint));
 
         // To keep track of the minimum distance squared of elements of
@@ -153,12 +159,12 @@ public class KMeansPP {
 
         return resultSet;
     }
-    
-    
+
+
     private boolean recalculateCentroids(ArrayList<Cluster> clusters) {
-    	
+
     	boolean emptyCluster = false;
-    	
+
         // Calculate the centroids
         for (Cluster cluster : clusters) {
             if (cluster.getPoints().isEmpty()) {
@@ -170,9 +176,9 @@ public class KMeansPP {
         }
     	return emptyCluster;
     }
-    
-    
-    
+
+
+
     public ArrayList<Cluster> cluster(ArrayList<DenseVector> points) {
 
         // create the initial clusters
@@ -181,23 +187,23 @@ public class KMeansPP {
         // create an array containing the latest assignment of a point to a cluster
         // no need to initialize the array, as it will be filled with the first assignment
         int[] assignments = new int[points.size()];
-        
+
         vectorsToCentroid(clusters, points, assignments);
 
     	boolean emptyCluster;
-    	
+
         // iterate through updating the centers until we're done
     	int max = (maxIters < 0) ? Integer.MAX_VALUE : maxIters;
         for (int count = 0; count < max; count++) {
-        	
+
         	System.out.println("Iteration "+count);
 
         	// Calculate Centroids
         	emptyCluster = recalculateCentroids(clusters);
-            
+
             // Assign vectors to centroids
             int changes = vectorsToCentroid(clusters, points, assignments);
-            
+
             // if there were no more changes in the point-to-cluster assignment
             // and there are no empty clusters left, return the current clusters
             if (changes == 0 && !emptyCluster) {
@@ -206,32 +212,32 @@ public class KMeansPP {
         }
         return finalizeClusters(clusters);
     }
-    
-    
+
+
     private int vectorsToCentroid(ArrayList<Cluster> clusters, ArrayList<DenseVector> vecs,
         int[] assignments) {
 		int assignedDifferently = 0;
 		int pointIndex = 0;
 		int clusterIndex;
-		
+
 		// Get re-assignment cluster index
 		for (DenseVector v : vecs) {
-		
+
 			clusterIndex = getNearestCluster(clusters, v);
 			if (clusterIndex != assignments[pointIndex]) {
 				assignedDifferently++;
 			}
 			assignments[pointIndex] = clusterIndex;
-			
+
 			Cluster cluster = clusters.get(clusterIndex);
 			cluster.addPoint(v);
 			//assignments[pointIndex++] = clusterIndex;
 			pointIndex++;
 		}
-		
+
 		// Clear points from centroids
 		for (Cluster c : clusters) c.clearPoints();
-		
+
 		// Add points to clusters
 		pointIndex = 0;
 		for (DenseVector v : vecs) {
@@ -239,22 +245,22 @@ public class KMeansPP {
 			cluster.addPoint(v);
 			pointIndex++;
 		}
-	
-		return assignedDifferently;			
+
+		return assignedDifferently;
 	}
-    
-    
+
+
     private DenseVector getPointFromLargestVarianceCluster(ArrayList<Cluster> clusters) {
 
         double maxVariance = Double.NEGATIVE_INFINITY;
         Cluster selected = null;
-        
+
         for (Cluster c : clusters) {
             if (!c.getPoints().isEmpty()) {
 
                 // compute the distance variance of the current cluster
                 DenseVector center = c.getCentroid();
-                
+
                 Variance stat = new Variance();
                 for (DenseVector point : c.getPoints()) {
                     stat.increment( point.euclideanDistanceSquared(center));
@@ -277,21 +283,21 @@ public class KMeansPP {
 
         // extract a random point from the cluster
         ArrayList<DenseVector> selectedPoints = selected.getPoints();
-        
+
         return selectedPoints.remove(random.nextInt(selectedPoints.size()));
 
     }
-    
+
     private int getNearestCluster(ArrayList<Cluster> clusters, DenseVector vec) {
         float minDistance = Float.MAX_VALUE;
-        
+
         int clusterIndex = 0;
         int minCluster = 0;
-        
+
         for (Cluster c : clusters) {
-        	
+
             float distance = vec.euclideanDistanceSquared(c.getCentroid());
-            
+
             if (distance < minDistance) {
                 minDistance = distance;
                 minCluster = clusterIndex;
@@ -310,8 +316,8 @@ public class KMeansPP {
         }
     	return clusters;
     }
-    
-    
+
+
 	/**
 	 * @param args
 	 */
