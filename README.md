@@ -20,7 +20,7 @@ The java code has been exported as a jar file and contains a number of command l
 The following scripts are provided:
 
 
-Labels2Sentences.bat:
+*Labels2Sentences.bat:*
 Converts tokens from single token/line to single sentence per line.
 
 
