@@ -2,20 +2,8 @@
 
 The code and scripts in this repository accompanies the paper:
 
-"Analysis ofWord Embeddings and Sequence Features for Clinical Information Extraction"
+De Vine, L., Kholghi, M., Zuccon, G., Sitbon, L., Nguyen, A., "Analysis ofWord Embeddings and Sequence Features for Clinical Information Extraction", 13th Annual Workshop of the Australasian Language Technology Association, 2015.
 Proceedings here: http://www.alta.asn.au/events/alta2015/proceedings.pdf
-
-@inproceedings{quteprints90401,
-       booktitle = {13th Annual Workshop of the Australasian Language Technology Association},
-           month = {October},
-           title = {Analysis of word embeddings and sequence features
-for clinical information extraction},
-          author = {Lance De Vine and Mahnoosh Kholghi and Guido Zuccon and Laurianne Sitbon and Anthony Nguyen},
-         address = {University of Western Sydney, Parramatta, NSW},
-            year = {2015},
-             url = {http://eprints.qut.edu.au/90401/},
-        abstract = {This study investigates the use of unsupervised features derived from word embedding approaches and novel sequence representation approaches for improving clinical information extraction systems. Our results corroborate previous findings that indicate that the use of word embeddings significantly improve the effectiveness of concept extraction models; however, we further determine the influence that the corpora used to generate such features have. We also demonstrate the promise of sequence-based unsupervised features for further improving concept extraction.}
-}
 
 The code is somewhat specific to the i2b2 2010 concept extraction task, but could, with some minor modifications, be used for other concept extraction tasks.
 
